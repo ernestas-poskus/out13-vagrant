@@ -1,0 +1,8 @@
+.DS_Store
+.vagrant
+.idea/
+.tmp/
+Gemfile.lock
+.librarian/
+Puppetfile.lock
+vag/

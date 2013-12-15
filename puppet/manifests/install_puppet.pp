@@ -1,7 +1,7 @@
 # --- Install Puppet ---------------------------------------------------------------------
 
 
-class  install_puppet {
+class install_puppet {
     apt::source { 'puppetlabs':
         location   => 'http://apt.puppetlabs.com',
         repos      => 'dependencies',

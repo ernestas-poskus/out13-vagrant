@@ -4,10 +4,10 @@ out13-vagrant
 Installation
 ------------
 
-* Install git, Ruby
+* Install Git, Ruby
 * Install Ruby DevKit [GitHub Devkit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
 * Install VirtualBox using the packages at [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-* Install vagrant using the installation instructions in the [Getting Started document](http://vagrantup.com/v1/docs/getting-started/index.html)
+* Install Vagrant using the installation instructions in the [Getting Started document](http://vagrantup.com/v1/docs/getting-started/index.html)
 * run the following commands:
 
 ```shell

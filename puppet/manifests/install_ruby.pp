@@ -14,13 +14,13 @@ class install_ruby ($username = 'vagrant', $rubyversion = '2.0.0-p247', $railsve
 	}
 	
 	
-	# rvm_gem {
-	  # 'bundler':
-		# name => 'bundler',
-		# ruby_version => $rubyversion,
-		# ensure => latest,
-		# require => Rvm_system_ruby[$rubyversion];
-	# }
+	rvm_gem {
+	  'bundler':
+		name => 'bundler',
+		ruby_version => $rubyversion,
+		ensure => latest,
+		require => Rvm_system_ruby[$rubyversion];
+	}
 	
 	# rvm_gem {
 	  # 'rails':

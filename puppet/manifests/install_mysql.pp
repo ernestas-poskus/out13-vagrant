@@ -3,9 +3,8 @@
 
 class install_mysql {
 
-	class { '::mysql::server':
-	  root_password    => '',
-	  override_options => { 'mysqld' => { 'max_connections' => '1024' } }
-	}
-
+	include '::mysql::server'
 }
+
+
+# https://github.com/puppetlabs/puppetlabs-mysql

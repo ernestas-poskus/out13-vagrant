@@ -49,7 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # vbox.gui = true
 
     # Use VBoxManage to customize the VM. For example to change memory:
-    vbox.customize ["modifyvm", :id, "--memory", "1024"]
+    vbox.customize ["modifyvm", :id, "--memory", "2048"]
 	
   end
   

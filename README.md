@@ -30,12 +30,12 @@ Installed components
 * RVM / Ruby (2.0.0-p247) / Rails (4.0.2)
 * Nginx
 * PostgreSQL
+* Node.js
 * MongoDB
 * Redis
 
 Optional:
 * MySQL
-* Node.js
 * Memcached
 
 Hints

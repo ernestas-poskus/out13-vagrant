@@ -13,6 +13,7 @@ Installation
 ```shell
 gem install puppet librarian-puppet
 gem install bundler
+vagrant box add vagrant-rails-dev http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-1204-x64.box
 git clone https://github.com/ernestas-poskus/out13-vagrant
 cd out13-vagrant
 bundle install
@@ -28,13 +29,14 @@ Installed components
 
 * RVM / Ruby (2.0.0-p247) / Rails (4.0.2)
 * Nginx
-* Node.js
-* MySQL
 * PostgreSQL
 * MongoDB
-* Memcached
 * Redis
 
+Optional:
+* MySQL
+* Node.js
+* Memcached
 
 Hints
 -----

@@ -15,9 +15,9 @@ repo = {
 	'redis'		=> 'git://github.com/fsalum/puppet-redis',
 	'postgresql'=> 'git://github.com/akumria/puppet-postgresql',
 	'mongodb' 	=> 'git://github.com/puppetlabs/puppetlabs-mongodb.git',
-	#'mysql' 	=> 'git://github.com/puppetlabs/puppetlabs-mysql.git',
-	#'memcached' => 'git://github.com/saz/puppet-memcached.git',
-	#'cassandra' => 'git://github.com/gini/puppet-cassandra.git',
+	'mysql' 	=> 'git://github.com/puppetlabs/puppetlabs-mysql.git',
+	'memcached' => 'git://github.com/saz/puppet-memcached.git',
+	'cassandra' => 'git://github.com/gini/puppet-cassandra.git',
 }
 cwd = File.join(Dir.pwd, "modules")
 

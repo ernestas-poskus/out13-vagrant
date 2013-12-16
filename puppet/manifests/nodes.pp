@@ -27,8 +27,8 @@ node vagrant-ruby-dev inherits default {
 	include monit
 	
 	# Databases
-    import 'install_mysql.pp'
-		include install_mysql
+    # import 'install_mysql.pp'
+	#	include install_mysql
 	import 'install_postgres.pp'
 		include install_postgres
 	
@@ -36,8 +36,8 @@ node vagrant-ruby-dev inherits default {
 	include nodejs
 	
 	# NoSQL
-	import 'install_memcached.pp'
-		include install_memcached
+	# import 'install_memcached.pp'
+	#	include install_memcached
 	import 'install_redis.pp'
 		include install_redis
 	import 'install_mongodb.pp'	

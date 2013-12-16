@@ -22,5 +22,5 @@ cwd = File.join(Dir.pwd, "modules")
 
 repo.each do |name, repository|
   puts "Cloning #{name}, from #{repository}"
-  Git.clone(repository, name, :bare => true, :path => cwd )
+  Git.clone(repository, name, :path => cwd )
 end

@@ -1,5 +1,7 @@
 # --- MySQL --------------------------------------------------------------------
-
+#
+# @Provider: git://github.com/puppetlabs/puppetlabs-mysql.git
+#
 
 class install_mysql {
 

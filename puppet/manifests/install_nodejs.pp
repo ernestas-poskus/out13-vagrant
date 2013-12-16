@@ -1,4 +1,7 @@
 # --- Node.js installation ---------------------------------------------------------------
+#
+# @Provider: git://github.com/willdurand/puppet-nodejs.git
+#
 
 class install_nodejs {
 

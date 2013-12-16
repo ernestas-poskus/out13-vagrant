@@ -1,5 +1,7 @@
 # --- Install Cassandra  ---------------------------------------------------------------------
-
+#
+# @Provider: git://github.com/gini/puppet-cassandra.git
+#
 
 class install_cassandra  {
 

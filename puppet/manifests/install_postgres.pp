@@ -1,4 +1,7 @@
 # --- PostgreSQL ---------------------------------------------------------------
+#
+# @Provider: git://github.com/akumria/puppet-postgresql
+#
 
 class install_postgres {
 

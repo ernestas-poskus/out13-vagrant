@@ -1,5 +1,7 @@
 # --- RVM / Ruby / Rails --------------------------------------------------------------------
-
+#
+# @Provider: git://github.com/blt04/puppet-rvm
+#
 
 class install_ruby () {
 

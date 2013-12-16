@@ -1,5 +1,7 @@
 # --- Install Puppet ---------------------------------------------------------------------
-
+#
+# @Provider: Puppet Labs
+#
 
 class install_puppet {
     apt::source { 'puppetlabs':

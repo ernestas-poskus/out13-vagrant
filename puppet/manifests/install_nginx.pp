@@ -1,5 +1,7 @@
 # --- Install Nginx ---------------------------------------------------------------------
-
+#
+# @Provider: https://github.com/jfryman/puppet-nginx
+#
 
 class install_nginx {
 

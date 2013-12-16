@@ -1,5 +1,7 @@
 # --- MongoDB ---------------------------------------------------------------
-
+#
+# @Provider: git://github.com/puppetlabs/puppetlabs-mongodb.git
+#
 
 class install_mongodb {
 

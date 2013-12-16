@@ -1,5 +1,7 @@
 # --- Redis Setup ---------------------------------------------------------------
-
+#
+# @Provider: git://github.com/fsalum/puppet-redis
+#
 
 class install_redis {
 

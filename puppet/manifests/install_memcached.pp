@@ -1,4 +1,8 @@
 # --- Memcached ----------------------------------------------------------------
+#
+# @Provider: git://github.com/saz/puppet-memcached.git
+#
+
 
 class install_memcached {
   

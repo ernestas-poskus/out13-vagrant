@@ -10,5 +10,8 @@ class install_postgres {
 		version => '9.1',
 	}
 	
+	postgresql::db { 'vagrant':
+		password => 'vagrant',
+	}
 	
 }

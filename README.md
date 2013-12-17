@@ -1,4 +1,4 @@
-out13-vagrant
+Ruby / Rails development environment - out13-vagrant 
 =============
 
 Installation
@@ -13,6 +13,7 @@ Installation
 ```shell
 gem install puppet librarian-puppet
 gem install bundler
+vagrant plugin install vagrant-vbguest
 vagrant box add vagrant-rails-dev http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-1204-x64.box
 git clone https://github.com/ernestas-poskus/out13-vagrant
 cd out13-vagrant
@@ -37,6 +38,7 @@ Installed components
 Optional:
 * MySQL
 * Memcached
+* Heroku / Toolbelt
 
 Hints
 -----

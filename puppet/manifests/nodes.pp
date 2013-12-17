@@ -3,12 +3,12 @@
 
 node default 
 { 
+	# Manages packages, runs services, handles configuration
+	# include monit
+
 	# Puppet & dependencies
 	import 'install_puppet.pp'
 	require install_puppet
-
-	# Manages packages, runs services, handles configuration
-	include monit
 
 	# RVM / Ruby / Rails
 	import 'install_ruby.pp'
@@ -33,13 +33,12 @@ node vagrant-ruby-dev inherits default {
 	include nodejs
 	
 	# NoSQL
-	# import 'install_memcached.pp'
-	#	include install_memcached
 	import 'install_mongodb.pp'	
 		include install_mongodb
 	import 'install_redis.pp'
 		include install_redis
-
+	# import 'install_memcached.pp'
+	#	include install_memcached
 }
 
 

@@ -3,12 +3,12 @@
 
 node default 
 { 
-	# Manages packages, runs services, handles configuration
-	# include monit
-
 	# Puppet & dependencies
 	import 'install_puppet.pp'
-	require install_puppet
+	include install_puppet
+
+	# Manages packages, runs services, handles configuration
+	include monit 
 
 	# RVM / Ruby / Rails
 	import 'install_ruby.pp'
@@ -19,26 +19,24 @@ node default
 # Vagrant Ruby Development Node
 node vagrant-ruby-dev inherits default {
 
- 	# Web Server
+ 	
 	import 'install_nginx.pp'
-	include install_nginx
-	
-	# Databases
+	import 'install_security.pp'
+	# import 'install_mysql.pp'
 	import 'install_postgres.pp'
-		include install_postgres
-    # import 'install_mysql.pp'
-	#	include install_mysql
-	
-	# NPM / Node.js
-	include nodejs
-	
-	# NoSQL
-	import 'install_mongodb.pp'	
-		include install_mongodb
-	import 'install_redis.pp'
-		include install_redis
+	import 'install_mongodb.pp'
 	# import 'install_memcached.pp'
-	#	include install_memcached
+	import 'install_redis.pp'
+		
+
+	include install_nginx
+	include install_security
+	# include install_mysql 
+	include install_postgres
+	include nodejs
+	include install_mongodb
+	# include install_memcached
+	include install_redis
 }
 
 

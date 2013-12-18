@@ -30,7 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ##############################################################################################
   
   # Network
-  #	config.vm.network :private_network, ip: "13.13.13.13"
+  config.vm.network :private_network, ip: "192.168.13.13"
   
   # Create a public network, which generally matched to bridged network.
   # config.vm.network :public_network

@@ -26,7 +26,7 @@ class basic::packages{
         ensure => present
     }
 	
-	package { ['zlib1g-dev', 'libc6-dev',  'libyaml-dev', 'libreadline6-dev', 'libssl-dev', 'libreadline-gplv2-dev', 'ssh', 'aptitude' ]:
+	package { ['zlib1g-dev', 'libc6-dev',  'libyaml-dev', 'libpq-dev', 'libreadline6-dev', 'libssl-dev', 'libreadline-gplv2-dev', 'ssh', 'aptitude' ]:
         require => Exec['aptupgrade'],
         ensure => present
     }

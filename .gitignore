@@ -5,4 +5,5 @@
 Gemfile.lock
 .librarian/
 Puppetfile.lock
+vag/*
 !vag/.gitkeep

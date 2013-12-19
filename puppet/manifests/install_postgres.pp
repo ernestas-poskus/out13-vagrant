@@ -1,16 +1,27 @@
 # --- PostgreSQL ---------------------------------------------------------------
 #
-# @Provider: git@github.com:puppetlabs/puppetlabs-postgresql.git
+# @Provider: git@github.com:ernestas-poskus/puppet-postgresql.git
 #
 
-class install_postgres {
+class install_postgres 
+{
 
-	class { 'postgresql::server':
-	  ip_mask_allow_all_users    => '192.168.0.0/16',
-	  listen_addresses           => '*',
-	  ipv4acls                   => ['hostssl all johndoe 192.168.0.0/16 cert'],
-	  manage_firewall            => true,
-	  postgres_password          => 'root',
+	$db_user = 'vag'
+
+	class {'postgresql': }
+	class {'postgresql::server':
+		version => '9.1',
+	}->
+	pg_user { $db_user:
+    	ensure   => present,
+    	password => $db_user,
+	}->
+	pg_database {'rails_db1':
+	    ensure   => present,
+	    owner    => $db_user,
+	    encoding => 'UTF8',
+    	locale   => 'en_US.UTF-8',
+	    require  => Pg_user[$db_user],
 	}
-	
 }
+

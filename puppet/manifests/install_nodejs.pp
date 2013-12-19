@@ -1,17 +1,20 @@
 # --- Node.js installation ---------------------------------------------------------------
 #
-# @Provider: git://github.com/willdurand/puppet-nodejs.git
+# @Provider: git@github.com:puppetlabs/puppetlabs-nodejs.git
 #
 
 class install_nodejs {
 
-	class { 'nodejs':
-	  version => 'v0.10.17',
-	}
+	include nodejs
   
 	package { 'express':
-	  provider => npm
+	  ensure   => present,
+	  provider => 'npm',
 	}
-  
+
+	package { 'mime':
+	  ensure   => '1.2.4',
+	  provider => 'npm',
+	}
   
 }

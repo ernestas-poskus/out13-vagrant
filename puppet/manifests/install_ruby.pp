@@ -17,21 +17,38 @@ class install_ruby () {
 		$rubyversion:
 		ensure => 'present',
 		default_use => true;
-	}
-	
-	rvm_gem {
-	  'bundler':
+	}->
+	exec { "/usr/local/rvm/bin/rvm requirements": }->
+	exec { "/usr/local/rvm/bin/rvm rubygems current":}->
+
+	rvm_gem { 'bundler':
 		name => 'bundler',
 		ruby_version => $rubyversion,
 		ensure => latest,
 		require => Rvm_system_ruby[$rubyversion];
 	}
+	# rvm_gem { 'puppet_and_libaugeas':
+	# 	name => ['puppet', 'libaugeas-ruby'],
+	# 	ruby_version => $rubyversion,
+	# 	ensure => latest,
+	# 	require => Rvm_system_ruby[$rubyversion];
+	# }
 	
-	rvm_gem {
-	  'rails':
+	# Ruby Web Server
+	rvm_gem { 'passenger':
+		name => 'passenger',
+		ruby_version => $rubyversion,
+		ensure => latest,
+		require => Rvm_system_ruby[$rubyversion];
+	}->
+	exec { '/usr/local/rvm/bin/rvm passenger-install-nginx-module': }
+
+	rvm_gem { 'rails':
 		name => 'rails',
 		ruby_version => $rubyversion,
 		ensure => $railsversion,
 		require => Rvm_system_ruby[$rubyversion];
 	}
+
+
 }

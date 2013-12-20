@@ -11,13 +11,11 @@ class install_postgres
 	class {'postgresql': }
 	class {'postgresql::server':
 		version => '9.1',
-	}->
-	
-	
+	}->	
 	pg_user { $db_user:
     	ensure   => present,
     	password => $db_user,
-	}
+	}->
 	pg_user { $rails_user:
     	ensure   => present,
     	password => $rails_user,

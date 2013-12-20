@@ -12,21 +12,19 @@ class update_system
 	notify {"System update complete":}
 }
 
-
 # just some packages
 class basic::packages{
-
-	package { [ 'build-essential', 'curl', 'wget', 'autoconf', 'git-core']:
+	package { [ 'build-essential', 'openssl', 'curl', 'wget', 'git-core']:
         require => Exec['aptupgrade'],
         ensure => present
     }
 	# Nokogiri dependencies (Rails)
-	package { [ 'libxml2', 'libxml2-dev', 'libxslt1-dev', 'sqlite3', 'libsqlite3-dev']:
+	package { [ 'libxml2', 'libxml2-dev', 'ncurses-dev', 'libxslt1-dev', 'libc6-dev',  'libyaml-dev']:
         require => Exec['aptupgrade'],
         ensure => present
     }
 	
-	package { ['zlib1g-dev', 'libc6-dev',  'libyaml-dev', 'libpq-dev', 'libreadline6-dev', 'libssl-dev', 'libreadline-gplv2-dev', 'ssh', 'aptitude' ]:
+	package { ['zlib1g', 'zlib1g-dev', 'libpq-dev', 'libssl-dev', 'libreadline-gplv2-dev', 'ssh', 'aptitude' ]:
         require => Exec['aptupgrade'],
         ensure => present
     }

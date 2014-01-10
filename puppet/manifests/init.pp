@@ -9,20 +9,15 @@ File {
 
 # --- Preinstall Stage ---------------------------------------------------------
 
-# stage { 'preinstall': }
-# Stage['preinstall'] -> Stage['main']
+stage { 'preinstall':
+  before => Stage['main']
+}
 
-# import 'update_system.pp'
-# import 'nodes.pp'
-
-# class{ ['update_system']:
-#   stage => preinstall
-# }
+import 'update_system.pp'
 
 
+class{ ['update_system']:
+  stage => preinstall
+}
 
-
-
-
-
-
+import 'nodes.pp'

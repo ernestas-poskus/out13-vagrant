@@ -5,18 +5,22 @@
 # @GitHub: github.com/ernestas-poskus
 
 # -----
-# Project: Vagrant + Puppet
-# @date: 2013-12
+# Project: Vagrant + Shell + Puppet
+# @date: 2013-11
+# @updated: 2014-01
 
+
+$VM_NAME = 'outdev'
+$INSTALL_RUBY_VERSION = 'ruby-2.0.0-p353' # Date @2014-01 / Puppet does not support ruby-2.1.0
 
 # Vagrant version 2
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box       = 'vagrant-ruby-dev'
-  # config.vm.box_url   = 'http://files.vagrantup.com/precise32.box'
-  config.vm.box_url   = 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box'
-  config.vm.hostname = 'vagrant-ruby-dev'
+
+  config.vm.box = $VM_NAME
+  config.vm.hostname = $VM_NAME
+  config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box'
   
   ##############################################################################################
   
@@ -27,15 +31,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.ssh.private_key_path
   config.ssh.forward_agent = true
 
-  config.vm.provision :shell do |shell|
-    shell.inline = '
-    which rvm || \curl -sSL https://get.rvm.io | bash -s stable --ruby;
-    usermod -a -G rvm vagrant;
-    chown -R vagrant:rvm /usr/local/rvm;
-    '
-  end
-  
-  config.vm.provision "shell", path: "depend.sh", privileged: false
+  config.vm.provision :shell, :privileged => true, :path => "shell/install_dependencies.sh"
+  config.vm.provision :shell, :privileged => true, :path => "shell/install_rvm.sh", :args => $INSTALL_RUBY_VERSION
+  config.vm.provision :shell, :privileged => true, :path => "shell/install_gems.sh"
+  config.vm.provision :shell, :privileged => true, :path => "shell/install_nodejs.sh"
+  config.vm.provision :shell, :privileged => true, :path => "shell/install_passenger.sh"
+  config.vm.provision :shell, :privileged => true, :path => "shell/install_user.sh"
 
   ##############################################################################################
   
@@ -50,28 +51,30 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # File System
   # Bridged networks make the machine appear as another physical device on your network.
-  config.vm.synced_folder "vag", "/vagrant", :nfs => true
-    
-  ##############################################################################################
+  config.vm.synced_folder "vm/", "/vagrant", :nfs => true
+
+ ##############################################################################################
   
   # VirtualBox
-  config.vm.provider :virtualbox do |vbox|
-    # Don't boot with headless mode
-    # vbox.gui = true
+  config.vm.provider :virtualbox do |v|
 
-    # Use VBoxManage to customize the VM. For example to change memory:
-    vbox.customize ["modifyvm", :id, "--memory", "1024"]
-	
+  	v.name = $VM_NAME
+    v.customize ["modifyvm", :id, "--memory", "1024"] 
+
+    # Enables Symlinks
+	  v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+    v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+    v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
-  
+
   ##############################################################################################
   
   # Puppet Configuration / Manifests 
-  config.vm.provision :puppet do |puppet|
-    puppet.options = "--verbose --summarize --debug"
-    puppet.manifests_path = "puppet/manifests"
-    puppet.module_path = "puppet/modules"
-    puppet.manifest_file  = "init.pp"
+  config.vm.provision :puppet do |pp|
+    pp.options            = "--verbose --summarize --debug"
+    pp.manifests_path     = "puppet/manifests"
+    pp.module_path        = "puppet/modules"
+    pp.manifest_file      = "init.pp"
   end
 	
 end

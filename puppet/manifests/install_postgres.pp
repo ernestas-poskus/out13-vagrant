@@ -1,40 +1,29 @@
 # --- PostgreSQL ---------------------------------------------------------------
 #
-# @Provider: git@github.com:ernestas-poskus/puppet-postgresql.git
+# @Provider: https://github.com/ernestas-poskus/puppet-postgresql
 #
 
 class install_postgres 
 {
-	$db_user = 'vagrant'
-	$rails_user = 'out'
 
-	class {'postgresql': }
 	class {'postgresql::server':
-		version => '9.1',
-	}->	
-	pg_user { $db_user:
-    	ensure   => present,
-    	password => $db_user,
-	}->
-	pg_user { $rails_user:
-    	ensure   => present,
-    	password => $rails_user,
+    	# acl    => ['host all all 192.168.0.0/16 trust', ],
+    	locale => 'es_US.UTF-8',
 	}
 
-	
-	pg_database { $db_user:
-	    ensure   => present,
-	    owner    => $db_user,
-	    encoding => 'UTF8',
-    	locale   => 'en_US.UTF-8',
-	    require  => Pg_user[$db_user],
+	pg_user {'rail':
+	    ensure     => present,
+	    password   => 'rail',
+	    createdb   => true,
+	    createrole => true,
 	}
-	pg_database { $rails_user:
-	    ensure   => present,
-	    owner    => $rails_user,
-	    encoding => 'UTF8',
-    	locale   => 'en_US.UTF-8',
-	    require  => Pg_user[$rails_user],
-	}
+	# ->
+	# pg_database { ['rail_development', 'rail_production', 'rail_test']:
+	#     ensure   => present,
+	#     owner    => 'rail',
+	#     require  => Pg_user['rail'],
+	# }
+
+
+
 }
-

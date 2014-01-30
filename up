@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-vagrant up $1 $2 $3
+vagrant up $1 $2 $3 --no-provision

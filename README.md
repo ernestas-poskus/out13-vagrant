@@ -25,14 +25,16 @@ vagrant ssh [main, js, db]
 Installed components
 --------------------
 
-* RVM / Ruby (2.0.0-p353) / Rails (4.0.2)
+* RVM / Ruby (2.0.0-p353) 
+* Rails (4.0.2) 
 * Nginx + Passenger
 * PostgreSQL
 * MongoDB
 * Redis
 * Node.js
 
-Optional:
+**Optional:**
+
 * PostgreSQL / MongoDB
 * Memcached
 * Heroku / Toolbelt
@@ -86,7 +88,7 @@ pr [main, js, db]
 ss [main, js, db]
 ```
 
-**To bring up several nodes in parallel**
+**To bring up several nodes in parallel without provision**
 
 
 ```shell

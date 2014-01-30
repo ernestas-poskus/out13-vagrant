@@ -1,4 +1,4 @@
-Ruby / Rails development environment - out13-vagrant 
+Vagrant Multi-Node environment
 =============
 
 Installation
@@ -11,32 +11,29 @@ Installation
 * run the following commands:
 
 ```shell
-gem install puppet librarian-puppet
-gem install bundler
-vagrant plugin install vagrant-vbguest
-vagrant box add vagrant-rails-dev http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-1204-x64.box
 git clone https://github.com/ernestas-poskus/out13-vagrant
 cd out13-vagrant
+gem install bundler
 bundle install
 cd out13-vagrant/puppet
 ruby resolve_dependencies.rb
 cd ..
-vagrant up
-vagrant ssh
+vagrant up [main, js, db]
+vagrant ssh [main, js, db]
 ```
 
 Installed components
 --------------------
 
-* RVM / Ruby (2.0.0-p247) / Rails (4.0.2)
-* Nginx
+* RVM / Ruby (2.0.0-p353) / Rails (4.0.2)
+* Nginx + Passenger
 * PostgreSQL
-* Node.js
 * MongoDB
 * Redis
+* Node.js
 
 Optional:
-* MySQL
+* PostgreSQL / MongoDB
 * Memcached
 * Heroku / Toolbelt
 
@@ -48,7 +45,7 @@ Hints
 To provision again in case of update or errors while the virtual machine is already up, use:
 
 ```shell
-vagrant provision
+vagrant provision [main, js, db]
 ```
 It just runs puppet to apply manifests without restarting the virtual machine.
 
@@ -60,3 +57,36 @@ To speed up the startup process after the first run, use:
 vagrant up --no-provision
 ```
 It just starts the virtual machine without provisioning of the puppet recipes.
+
+**Bash Binaries**
+
+To start main Vagrant instance node
+
+```shell
+dev - to start [main, db] environments in parallel
+dev js - to start node.js + mongodb environment
+```
+
+To destroy and start again
+
+```shell
+du [main, js, db]
+```
+
+To provision Vagrant instance with puppet
+
+```shell
+pr [main, js, db]
+```
+
+Shortcut to ssh into Vagrant node instances
+
+```shell
+ss [main, js, db]
+```
+
+To bring up several nodes in parallel
+
+```shell
+up [main, js, db]
+```

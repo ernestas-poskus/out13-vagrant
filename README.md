@@ -61,7 +61,7 @@ It just starts the virtual machine without provisioning of the puppet recipes.
 Bash Binaries
 -----
 
-To start main Vagrant instance node
+**To start main Vagrant instance node**
 
 ```shell
 dev - to start [main, db] environments in parallel
@@ -96,7 +96,7 @@ up [main, js, db]
 
 ### MIT License 
 
-Copyright (C) 2012 by Sergio Galván
+Copyright (C) 2012 by Ernestas Poškus
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

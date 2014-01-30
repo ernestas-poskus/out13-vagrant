@@ -1,20 +1,35 @@
  #!/usr/bin/env bash
-RUBY_VERSION="$1"
-
 
 echo 'Installing RVM'
-bash < <(curl -sk https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer ) # RVM as multi-user
 
-cd && echo "[[ -s "/usr/local/rvm/scripts/rvm" ]] && . "/usr/local/rvm/scripts/rvm"" >> .bashrc
-source /usr/local/rvm/scripts/rvm
-type rvm | head -n1
+# Not installing rdoc and ri
+echo 'gem: --no-rdoc --no-ri' >> ~/.gemrc
 
+# Load RVM at each login.
+echo "[[ -s '${HOME}/.rvm/scripts/rvm' ]] && source '${HOME}/.rvm/scripts/rvm'" >> ~/.bashrc
+
+curl -L https://get.rvm.io | bash -s stable
+
+echo 'Sourcing RVM'
+source ~/.rvm/scripts/rvm
+
+echo 'Reloading RVM'
+rvm reload
 
 echo 'Checking RVM requirements'
 rvm requirements
 
+echo 'Reloading RVM'
+rvm reload
 
 echo 'Installing Ruby'
-rvm install $RUBY_VERSION
-rvm use $RUBY_VERSION --default  
-echo "gem: --no-rdoc --no-ri" >> /etc/gemrc
+rvm install 2.0.0
+
+rvm use 2.0.0 --default
+
+echo 'Ruby Version Installed'
+ruby --version
+
+
+echo 'Installing Puppet'
+sudo apt-get -y install puppet

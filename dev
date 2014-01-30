@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ "$1" = "js" ]; then
+	vagrant up js && vagrant ssh js
+else
+	vagrant up main db && vagrant ssh main
+fi

@@ -1,9 +1,10 @@
-# --- Install Puppet ---------------------------------------------------------------------
+# --- Puppet Setup  ---------------------------------------------------------------
 #
-# @Provider: Puppet Labs
+# @Provider: https://github.com/ernestas-poskus/puppet-postgresql
 #
 
-class install_puppet {
+class  install_puppet {
+
     apt::source { 'puppetlabs':
         location   => 'http://apt.puppetlabs.com',
         repos      => 'dependencies',
@@ -16,5 +17,4 @@ class install_puppet {
         ['puppet', 'libaugeas-ruby']:
             ensure => latest;
     }
-
 }

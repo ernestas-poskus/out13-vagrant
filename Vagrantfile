@@ -1,81 +1,105 @@
-# @Author: Ernestas Poskus
-# @Author-URI: out13.com
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-# @LinkedIn: linkedin.com/in/ernestasposkus/
-# @GitHub: github.com/ernestas-poskus
+Vagrant.configure('2') do |config|
+ 
+  # Global Config 
 
-# -----
-# Project: Vagrant + Shell + Puppet
-# @date: 2013-11
-# @updated: 2014-01
-
-
-$VM_NAME = 'outdev'
-$INSTALL_RUBY_VERSION = 'ruby-2.0.0-p353' # Date @2014-01 / Puppet does not support ruby-2.1.0
-
-# Vagrant version 2
-VAGRANTFILE_API_VERSION = "2"
-
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
-  config.vm.box = $VM_NAME
-  config.vm.hostname = $VM_NAME
+  # Headless / Clean / Puppet/Ruby-less box
   config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box'
-  
-  ##############################################################################################
-  
-  # SSH
-  #config.ssh.username = "vagrant"
-  #config.ssh.host = ""
-  #config.ssh.port = '22'
-  #config.ssh.private_key_path
-  config.ssh.forward_agent = true
 
-  config.vm.provision :shell, :privileged => true, :path => "shell/install_dependencies.sh"
-  config.vm.provision :shell, :privileged => true, :path => "shell/install_rvm.sh", :args => $INSTALL_RUBY_VERSION
-  config.vm.provision :shell, :privileged => true, :path => "shell/install_gems.sh"
-  config.vm.provision :shell, :privileged => true, :path => "shell/install_nodejs.sh"
-  config.vm.provision :shell, :privileged => true, :path => "shell/install_passenger.sh"
-  config.vm.provision :shell, :privileged => true, :path => "shell/install_user.sh"
+  # Installing Puppet
+  config.vm.provision :shell, inline: "apt-get update && apt-get install -y puppet"
 
-  ##############################################################################################
+
+
+  # Main Vagrant Instance
+  config.vm.define :main, primary: true do |main|
   
-  # Network
-  config.vm.network :private_network, ip: "192.168.13.13"
+    main.vm.box = 'main'
+    main.vm.hostname = 'main'
+
+    # Network address
+    main.ssh.forward_agent = true
+    main.vm.network :private_network, ip: "192.168.110.110"
+    main.vm.network :forwarded_port, guest: 3000, host: 3000
+
+    # Sync Files
+    main.vm.synced_folder "vm_main/", "/var/www", :nfs => true
+
+    # VirtualBox
+    main.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--memory", "1024"] 
+
+      # Enables Symlinks
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+      v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+      v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vm_main", "1"]
+    end
   
-  # Create a public network, which generally matched to bridged network.
-  # config.vm.network :public_network
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
-
-  ##############################################################################################
-  
-  # File System
-  # Bridged networks make the machine appear as another physical device on your network.
-  config.vm.synced_folder "vm/", "/vagrant", :nfs => true
-
- ##############################################################################################
-  
-  # VirtualBox
-  config.vm.provider :virtualbox do |v|
-
-  	v.name = $VM_NAME
-    v.customize ["modifyvm", :id, "--memory", "1024"] 
-
-    # Enables Symlinks
-	  v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
-    v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
-    v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
 
-  ##############################################################################################
-  
+
+
+  # Node.js / JavaScript development Vagrant Instance
+  config.vm.define :js do |js|
+
+    js.vm.box = 'js'
+    js.vm.hostname = 'js'
+
+    # Network address
+    js.ssh.forward_agent = true
+    js.vm.network :private_network, ip: "192.168.120.120"
+    js.vm.network :forwarded_port, guest: 3000, host: 3000
+
+    # Sync Files
+    js.vm.synced_folder "vm_js/", "/vagrant", :nfs => true
+
+    # VirtualBox
+    js.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--memory", "1024"] 
+
+      # Enables Symlinks
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+      v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+      v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vm_js", "1"]
+    end
+  end
+
+
+
+
+  # PostgreSQL worker
+  config.vm.define :db do |db|
+
+    db.vm.box = 'db'
+    db.vm.hostname = 'db'
+
+    # Network address
+    db.vm.network :private_network, ip: "192.168.130.130"
+    db.ssh.forward_agent = true
+
+    # VirtualBox
+    db.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--memory", "512"] 
+    end
+  end
+
+
+
   # Puppet Configuration / Manifests 
   config.vm.provision :puppet do |pp|
     pp.options            = "--verbose --summarize --debug"
     pp.manifests_path     = "puppet/manifests"
     pp.module_path        = "puppet/modules"
     pp.manifest_file      = "init.pp"
+    pp.facter = {
+      'ruby_version_install'  => '2.0.0-p353',
+      'postgresql_port'       => 5432, # Default PostgreSQL port 5432
+      'mongo_port'            => 27017, # Default MongoDB port 27017
+      'redis_port'            => 6379, # Default Redis port 6379
+    }
   end
-	
-end
 
+
+end

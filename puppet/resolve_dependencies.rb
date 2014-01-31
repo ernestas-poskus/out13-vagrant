@@ -14,13 +14,6 @@ repo = {
 	'nginx'		=> 'git://github.com/jfryman/puppet-nginx.git', # Nginx Web Server
 	'monit' 	=> 'git://github.com/salimane/puppet-monit.git', # provides a simple way to install the package, monitor, run services, and handle the configuration
 	'firewall'	=> 'git://github.com/puppetlabs/puppetlabs-firewall.git', # Firewall used to manage and configure firewall rules from within the Puppet DSL
-	# 'inifile'	=> 'git://github.com/puppetlabs/puppetlabs-inifile', # provides resource types for use in managing INI-style configuration files
-	# 'facter'	=> 'git://github.com/puppetlabs/facter.git', # OS Facts
-	# 'nodejs' 	=> 'git://github.com/puppetlabs/puppetlabs-nodejs.git', # Node.js
-	# 'mysql' 	=> 'git://github.com/puppetlabs/puppetlabs-mysql.git',
-	# 'sqlite'	=> 'git://github.com/puppetlabs/puppetlabs-sqlite',	
-	# 'memcached' => 'git://github.com/saz/puppet-memcached.git',
-	# 'cassandra' => 'git://github.com/gini/puppet-cassandra.git',
 }
 cwd = File.join(Dir.pwd, "modules")
 

@@ -1,10 +1,12 @@
 .DS_Store
 .vagrant
+multi_vagrant.sublime-workspace
 .idea/
 .tmp/
 Gemfile.lock
 .librarian/
 Puppetfile.lock
-vm/*
+vm_js/*
+vm_main/*
 tmp*
 !vm/.gitkeep

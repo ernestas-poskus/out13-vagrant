@@ -55,6 +55,9 @@
 	},
 	"file_history":
 	[
+		"/D/Desktop/out13-vagrant/du",
+		"/D/Desktop/out13-vagrant/up",
+		"/D/Desktop/out13-vagrant/.gitignore",
 		"/M/Desktop/out13-vagrant/LICENSE",
 		"/M/Desktop/out13-vagrant/puppet/manifests/nodes.pp",
 		"/M/Desktop/out13-vagrant/Gemfile",
@@ -179,10 +182,7 @@
 		"/D/Desktop/out13-vagrant/puppet/modules/postgresql/templates/pg_hba.conf.erb",
 		"/D/Desktop/out13-vagrant/puppet/modules/postgresql/templates/postgresql.conf.erb",
 		"/D/Desktop/out13-vagrant/puppet/modules/postgresql/manifests/server.pp",
-		"/D/Desktop/out13-vagrant/puppet/modules/postgresql/lib/puppet/type/pg_user.rb",
-		"/D/Desktop/out13-vagrant/puppet/modules/postgresql/lib/puppet/type/pg_database.rb",
-		"/D/Desktop/out13-vagrant/puppet/modules/postgresql/lib/puppet/provider/pg_user/default.rb",
-		"/D/Desktop/out13-vagrant/puppet/modules/postgresql/lib/puppet/provider/pg_user/debian_postgresql.rb"
+		"/D/Desktop/out13-vagrant/puppet/modules/postgresql/lib/puppet/type/pg_user.rb"
 	],
 	"find":
 	{

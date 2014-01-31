@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-vagrant up $1 $2 $3 --no-provision
+if [ "$1" = "up" ]; then # If $1 argument is up then start normally
+	vagrant up $2 $3 $4
+else
+	vagrant up $1 $2 $3 --no-provision --parallel
+fi
+

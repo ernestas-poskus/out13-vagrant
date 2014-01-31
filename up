@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if [ "$1" = "up" ]; then # If $1 argument is up then start normally
-	vagrant up $2 $3 $4
+	vagrant up $2 $3 $4 --parallel
 else
 	vagrant up $1 $2 $3 --no-provision --parallel
 fi

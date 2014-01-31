@@ -95,6 +95,13 @@ ss [main, js, db]
 up [main, js, db]
 ```
 
+**To halt /suspend node**
+
+```shell
+sus [main, js, db] - suspends node (sleep mode)
+sus h [main, js, db] - when first argument is h then node is halted
+```
+
 
 ### MIT License 
 

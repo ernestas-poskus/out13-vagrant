@@ -1,5 +1,6 @@
 .DS_Store
 .vagrant
+multi_vagrant.sublime-workspace
 .idea/
 .tmp/
 Gemfile.lock

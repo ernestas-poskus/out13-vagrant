@@ -5,8 +5,17 @@
 class install_tools($packages = [])
 {
 
-    package { concat(['htop', 'tree'], $tools):
+	$tools = concat(['htop', 'tree', 'vim', 'tmux'], $packages)
+
+    package { $tools:
         ensure => present,
         require => Exec['aptupdate'],
     }
+
+
+    # Addding Tmux Apt Repository 
+    apt::ppa { 'ppa:pi-rho/dev':
+		before => Package['tmux'],
+    }
+
 }

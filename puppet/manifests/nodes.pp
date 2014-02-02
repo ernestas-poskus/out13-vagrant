@@ -3,6 +3,9 @@
 # Default Node for Global VM dependencies
 node default
 { 
+	import 'helpers/add_user.pp'
+
+
 	stage { 'preinstall':
 	  before => Stage['main']
 	}
@@ -66,13 +69,13 @@ node 'main' inherits default
 node 'js' inherits default 
 {
 	import 'install_mongodb.pp'
-	class { 'install_mongodb': client_only => true }
+	class { 'install_mongodb': }
 
 	import 'install_nodejs.pp'
 	class {'install_nodejs':
 		npm_package => [
 			'express', 'mongodb', 'consolidate', 'commander', 'swig', 
-			'coffee-script', 'grunt', 'request' # 'angular', 'ember', 'backbone',
+			'coffee-script', 'grunt', 'request', 'underscore',
 		]
 	}
 }

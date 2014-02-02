@@ -3,10 +3,15 @@
 # Sharding and Replication
 # @Provider: git://github.com/puppetlabs/puppetlabs-mongodb.git
 #
-# @Usage: https://github.com/puppetlabs/puppetlabs-mongodb#usage
 #
 
-class install_mongodb($client_only = false, $mongo_orm_gem = false) {
+class install_mongodb( $client_only = false, $mongo_orm_gem = false, $ips = ["${ipaddress_eth1}"] )
+{
+
+	$mongodb_user = 'vagrant'
+
+	$mongo_base_dir = '/data'
+	$mongo_db_path =  "${$mongo_base_dir}/db"
 
 
 	if $client_only
@@ -29,19 +34,16 @@ class install_mongodb($client_only = false, $mongo_orm_gem = false) {
 	}
 	else 
 	{
-		$mongodb_user = 'vagrant'
-
-		$mongo_base_dir = '/data'
-		$mongo_db_path =  "${$mongo_base_dir}/db"
-		
-		class {'mongodb::server':
+		class { 'mongodb::globals': 
+			manage_package_repo => true,
+		}->
+		class { 'mongodb::server':
 			ensure				=> true,	
 			user 				=> $mongodb_user,
 			group				=> $mongodb_user,
-			bind_ip				=> [ "${ipaddress_eth1}", ], #['127.0.0.1', '192.168.130.1'],
+			bind_ip				=> $ips,
 	  		port    			=> "${mongo_port}",
 	  		dbpath				=> $mongo_db_path,
-	  		# logpath				=> $mongo_log_path,
 	  		verbose 			=> true,
 	  		noauth 				=> true, # Authentication disabled
 	  		smallfiles			=> true, # Limits DB files to <= 512mb

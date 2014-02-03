@@ -18,7 +18,7 @@ class install_mongodb( $client_only = false, $mongo_orm_gem = false, $ips = ["${
 	{
 		package { 'mongodb-clients':
 			ensure 		=> present,
-			require		=> Class['update_system::update_aptget'],
+			require		=> Exec['out_apt_update'],
 		}
 
 		if $mongo_orm_gem

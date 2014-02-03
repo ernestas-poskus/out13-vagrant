@@ -9,7 +9,7 @@ class install_tools($packages = [])
 
     package { $tools:
         ensure => present,
-        require => Exec['aptupdate'],
+        require => Exec['out_apt_update'],
     }
 
 

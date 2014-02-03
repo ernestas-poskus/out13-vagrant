@@ -8,6 +8,6 @@ class install_sqlite
 
     package { $sqlite_libraries:
         ensure => present,
-        require => Exec['aptupdate'],
+        require => Exec['out_apt_update'],
     }
 }

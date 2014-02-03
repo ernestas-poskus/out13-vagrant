@@ -10,9 +10,9 @@ node default
 	  before => Stage['main']
 	}
 
-	import 'update_system.pp'
+	import 'out_system.pp'
 
-	class{ ['update_system']:
+	class{ ['out_system']: 
 	  stage => preinstall
 	}
 } 
@@ -25,6 +25,7 @@ node 'main' inherits default
 	import 'install_nginx.pp'
 	import 'install_ruby.pp'
 	import 'install_nodejs.pp'
+	import 'install_tools.pp'
 
 
 	#
@@ -55,6 +56,7 @@ node 'main' inherits default
 		mongo_orm_gem 	=> true
 	} 
 	
+	class { 'install_tools': }
 
 	# import 'install_postgres.pp'
 	# class { 'install_postgres': 
@@ -74,8 +76,7 @@ node 'js' inherits default
 	import 'install_nodejs.pp'
 	class {'install_nodejs':
 		npm_package => [
-			'express', 'mongodb', 'consolidate', 'commander', 'swig', 
-			'coffee-script', 'grunt', 'request', 'underscore',
+			'mongodb', 'commander', 'coffee-script', 'underscore',
 		]
 	}
 }

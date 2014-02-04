@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 if [ "$1" = "h" ]; then # If $1 argument is up then start normally
 	vagrant halt $2
 else

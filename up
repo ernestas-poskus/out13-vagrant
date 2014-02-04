@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 if [ "$1" = "up" ]; then # If $1 argument is up then start normally
 	vagrant up $2 $3 $4 --parallel
 else

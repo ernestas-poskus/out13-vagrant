@@ -5,7 +5,6 @@ node default
 { 
 	import 'helpers/add_user.pp'
 
-
 	stage { 'preinstall':
 	  before => Stage['main']
 	}
@@ -16,7 +15,6 @@ node default
 	  stage => preinstall
 	}
 } 
-
 
 
 # Main Node for Rails development
@@ -66,7 +64,6 @@ node 'main' inherits default
 }
 
 
-
 # Node.js Node for JavaScript applications
 node 'js' inherits default 
 {
@@ -81,6 +78,16 @@ node 'js' inherits default
 	}
 }
 
+
+# Python Node for Python/Django applications
+node 'py' inherits default 
+{
+	import 'install_python.pp'
+	class { 'install_python': }
+
+	import 'install_mongodb.pp'
+	class { 'install_mongodb': }
+}
 
 
 # DB Vagrant instance 

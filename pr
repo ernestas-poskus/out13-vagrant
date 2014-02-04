@@ -1,2 +1,2 @@
- #!/usr/bin/env bash
+#!/bin/sh
 vagrant provision $1 --provision-with puppet

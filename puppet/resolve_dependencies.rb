@@ -12,8 +12,9 @@ repo = {
 	'nodejs' 	=> 'git://github.com/puppetlabs/puppetlabs-nodejs.git',
 	'rvm' 		=> 'git://github.com/blt04/puppet-rvm', # Ruby Version Management
 	'nginx'		=> 'git://github.com/jfryman/puppet-nginx.git', # Nginx Web Server
-	'monit' 	=> 'git://github.com/salimane/puppet-monit.git', # provides a simple way to install the package, monitor, run services, and handle the configuration
-	'firewall'	=> 'git://github.com/puppetlabs/puppetlabs-firewall.git', # Firewall used to manage and configure firewall rules from within the Puppet DSL
+	'python'	=> 'git://github.com/stankevich/puppet-python.git' # Python with HTTP server
+	# 'firewall'	=> 'git://github.com/puppetlabs/puppetlabs-firewall.git', # Firewall used to manage and configure firewall rules from within the Puppet DSL
+	# 'monit' 	=> 'git://github.com/salimane/puppet-monit.git', # provides a simple way to install the package, monitor, run services, and handle the configuration
 }
 cwd = File.join(Dir.pwd, "modules")
 

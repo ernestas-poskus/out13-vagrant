@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [[ "$1" == "h" ]]; then
+
+	echo "Halting node: $2"
+	vagrant halt $2 
+else
+	status=$(vagrant status "$1")
+fi
+
+
+if [[ "$status" == *created* || "$status" == *poweroff* ]]; then
+
+	echo "Creating node: $1"
+	vagrant up $1
+
+elif [[ "$status" == *running* ]]; then
+
+	echo "Suspending node: $1"
+	vagrant suspend $1
+
+elif [[ "$status" == *saved* ]]; then
+
+	echo "Resuming node: $node"
+	vagrant resume $1
+
+else
+
+	echo "Nothing to do"
+
+fi 

@@ -102,6 +102,14 @@ sus [main, js, db] - suspends node (sleep mode)
 sus h [main, js, db] - when first argument is h then node is halted
 ```
 
+**To Suspend / Resume / Halt**
+
+```shell
+sr [main, js, db] - suspends / resumes ( checks status )
+sr h [main, js, db] - halts / up's node ( checks status )
+```
+
+
 
 ### MIT License 
 

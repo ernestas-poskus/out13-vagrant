@@ -3,7 +3,7 @@
 # @Provider: git://github.com/fsalum/puppet-redis
 #
 
-class install_redis($redis_gem = false) {
+class install_redis($redis_gem = false, $ip = '127.0.0.1') {
 
     if $redis_gem
     {
@@ -17,7 +17,7 @@ class install_redis($redis_gem = false) {
 
 
     class { 'redis':
-      conf_bind       => '127.0.0.1', # "${ipaddress_eth1}"
+      conf_bind       => $ip,
       conf_port       => "${redis_port}",
       conf_loglevel   => 'debug',
       package_ensure  => present,

@@ -14,4 +14,8 @@ class install_python
 		gunicorn   => true, # HTTP Web Server
 	}
 
+
+	python::pip { 'pymongo': }
+
+	python::pip { 'bottle': }
 }

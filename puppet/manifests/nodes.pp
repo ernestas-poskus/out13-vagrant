@@ -4,6 +4,7 @@
 node default
 { 
 	import 'helpers/add_user.pp'
+	import 'helpers/install_tools.pp'
 
 	stage { 'preinstall':
 	  before => Stage['main']
@@ -23,7 +24,6 @@ node 'main' inherits default
 	import 'install_nginx.pp'
 	import 'install_ruby.pp'
 	import 'install_nodejs.pp'
-	import 'install_tools.pp'
 
 
 	#
@@ -68,7 +68,9 @@ node 'main' inherits default
 node 'js' inherits default 
 {
 	import 'install_mongodb.pp'
-	class { 'install_mongodb': }
+	class { 'install_mongodb': 
+		ips => ['127.0.0.1', ]
+	}
 
 	import 'install_nodejs.pp'
 	class {'install_nodejs':
@@ -86,7 +88,9 @@ node 'py' inherits default
 	class { 'install_python': }
 
 	import 'install_mongodb.pp'
-	class { 'install_mongodb': }
+	class { 'install_mongodb': 
+		ips => ['127.0.0.1', ]
+	}
 }
 
 

@@ -3,7 +3,7 @@
 # Default Node for Global VM dependencies
 node default
 { 
-	import 'helpers/add_user.pp'
+	# import 'helpers/add_user.pp'
 	import 'helpers/install_tools.pp'
 	import 'helpers/install_zsh.pp'
 
@@ -13,8 +13,8 @@ node default
 
 	import 'out_system.pp'
 
-	class{ ['out_system']: 
-	  stage => preinstall
+	class{ 'out_system': 
+		stage => preinstall
 	}
 } 
 
@@ -25,45 +25,35 @@ node 'main' inherits default
 	import 'install_nginx.pp'
 	import 'install_ruby.pp'
 	import 'install_nodejs.pp'
-
-
-	#
-	# => Chained because installing order matters
-	# => 1. Node.js (Rails require node)
-	# => 2. Ruby ( Nginx passenger binds to RVM wrapper)
-	#
-	class {'install_nodejs':  
-	  npm_package => ['coffee-script',] 
-	}
-	->
-	class {'install_ruby':
-	  gems 			=> ['bundler', 'rails', ] 
-	}
-	->
-	class { 'install_nginx': }
-	
-
 	import 'install_redis.pp'
-	class { 'install_redis':
-	  redis_gem 		=> true
-	}
-		
-
 	import 'install_mongodb.pp'
-	class { 'install_mongodb': 
-	  client_only 	=> true, 
-	  mongo_orm_gem 	=> true
-	} 
+	import 'install_postgres.pp'
+
+	class { 'out_system::install_essential': }
+	->
+		class {'install_nodejs':  
+		  npm_package => ['coffee-script',] 
+		}
+		->
+			class {'install_ruby':
+			  gems => ['bundler', 'rails', 'redis' ] 
+			}
+			->
+				class { 'install_nginx': }
+				->
+					class { 'install_redis': }
+					->	
+						class { 'install_mongodb::client': 
+						  mongo_orm_gem => true
+						} 
+						->
+							class { 'install_postgres::client': 
+								pg_gem => true,
+							}
+
 	
 	class { 'install_tools': }
-
 	class { 'install_zsh': }
-
-	# import 'install_postgres.pp'
-	# class { 'install_postgres': 
-	# 	client_only 	=> true, 
-	# 	pg_gem 			=> true,
-	# }
 }
 
 
@@ -71,16 +61,20 @@ node 'main' inherits default
 node 'js' inherits default 
 {
 	import 'install_mongodb.pp'
-	class { 'install_mongodb': 
-	  ips => ['127.0.0.1', ]
-	}
-
 	import 'install_nodejs.pp'
-	class {'install_nodejs':
-	  npm_package => [
-		'mongodb', 'commander', 'coffee-script', 'underscore',
-	  ]
-	}
+
+	class { 'out_system::install_essential': }
+	->
+		class { 'install_mongodb': 
+	  	ips => ['127.0.0.1', ]
+		}
+		->
+			class {'install_nodejs':
+			  npm_package => ['mongodb', 'commander', 'coffee-script', 'underscore', ]
+			}
+
+	class { 'install_tools': }
+	class { 'install_zsh': }
 }
 
 
@@ -88,12 +82,18 @@ node 'js' inherits default
 node 'py' inherits default 
 {
 	import 'install_python.pp'
-	class { 'install_python': }
-
 	import 'install_mongodb.pp'
-	class { 'install_mongodb': 
-	  ips => ['127.0.0.1', ]
-	}
+
+	class { 'out_system::install_essential': }
+	->
+		class { 'install_python': }
+		->
+			class { 'install_mongodb': 
+			  ips => ['127.0.0.1', ]
+			}
+
+	class { 'install_tools': }
+	class { 'install_zsh': }
 }
 
 

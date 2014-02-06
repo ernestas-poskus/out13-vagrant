@@ -3,26 +3,8 @@
 # @Provider: https://github.com/ernestas-poskus/puppet-postgresql
 #
 
-class install_postgres($client_only = false, $pg_gem = false) 
+class install_postgres 
 {
-
-	if $client_only
-	{
-		class { 'postgresql::client': }	
-
-		if $pg_gem
-		{
-			rvm_gem { 'pg_gem':
-				name 			=> 'pg',
-				ruby_version 	=> $ruby_version_install,
-				ensure 			=> latest,
-				require 		=> [ Rvm_system_ruby[$ruby_version_install], Class['postgresql::client'] ];
-			}
-		}
-
-	}
-	else {
-
 		class {'postgresql::server': 
 			listen 			=> "*",
 	 	  	port   			=> "${postgresql_port}",
@@ -53,6 +35,24 @@ class install_postgres($client_only = false, $pg_gem = false)
 		    require  => Pg_user['vagrant'],
 		    template => 'template0', # Parent Template, template0 allows overridding encoding/locale
 		}
-	}
+
+}
+
+
+class install_postgres::client($pg_gem = false)
+{
+
+		class { 'postgresql::client': }	
+
+		if $pg_gem
+		{
+			rvm_gem { 'pg_gem':
+				name 			=> 'pg',
+				ruby_version 	=> $ruby_version_install,
+				ensure 			=> latest,
+				require 		=> Class['postgresql::client'];
+			}
+		}
+
 
 }

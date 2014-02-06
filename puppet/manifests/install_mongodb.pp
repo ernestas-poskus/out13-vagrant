@@ -5,7 +5,7 @@
 #
 #
 
-class install_mongodb( $client_only = false, $mongo_orm_gem = false, $ips = ["${ipaddress_eth1}"] )
+class install_mongodb( $ips = ["${ipaddress_eth1}"] )
 {
 
 	$mongodb_user = 'vagrant'
@@ -14,26 +14,6 @@ class install_mongodb( $client_only = false, $mongo_orm_gem = false, $ips = ["${
 	$mongo_db_path =  "${$mongo_base_dir}/db"
 
 
-	if $client_only
-	{
-		package { 'mongodb-clients':
-			ensure 		=> present,
-			require		=> Exec['out_apt_update'],
-		}
-
-		if $mongo_orm_gem
-		{
-			rvm_gem { 'mongo_orm_gem':
-				name 			=> 'mongo_mapper',
-				ruby_version 	=> $ruby_version_install,
-				ensure 			=> latest,
-				require 		=> [ Rvm_system_ruby[$ruby_version_install], Package['mongodb-clients'] ];
-			}
-		}
-
-	}
-	else 
-	{
 		class { 'mongodb::globals': 
 			manage_package_repo => true,
 		}->
@@ -60,5 +40,22 @@ class install_mongodb( $client_only = false, $mongo_orm_gem = false, $ips = ["${
 		    before 				=> Class['mongodb::server'],
 		}
 
-	}
+}
+
+
+class install_mongodb::client($mongo_orm_gem = false)
+{
+		package { 'mongodb-clients':
+			ensure 		=> present,
+			require		=> Exec['out_apt_update'],
+		}
+
+		if $mongo_orm_gem
+		{
+			rvm_gem { 'mongo_orm_gem':
+				name 			=> 'mongo_mapper',
+				ruby_version 	=> $ruby_version_install,
+				ensure 			=> latest,
+			}
+		}
 }

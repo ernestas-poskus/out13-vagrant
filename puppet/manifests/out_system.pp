@@ -8,8 +8,6 @@ class out_system
 
     # Spaceship relationship operator updates apt before installing package
 	Exec['out_apt_update'] -> Package <| |>
-
-    class { 'out_system::install_essential': } -> class { 'out_system::install_libraries': }
 }
 
 

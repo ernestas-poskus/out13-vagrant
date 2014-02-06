@@ -5,6 +5,7 @@ node default
 { 
 	import 'helpers/add_user.pp'
 	import 'helpers/install_tools.pp'
+	import 'helpers/install_zsh.pp'
 
 	stage { 'preinstall':
 	  before => Stage['main']
@@ -32,11 +33,11 @@ node 'main' inherits default
 	# => 2. Ruby ( Nginx passenger binds to RVM wrapper)
 	#
 	class {'install_nodejs':  
-		npm_package => ['coffee-script',] 
+	  npm_package => ['coffee-script',] 
 	}
 	->
 	class {'install_ruby':
-		gems 			=> ['bundler', 'rails', ] 
+	  gems 			=> ['bundler', 'rails', ] 
 	}
 	->
 	class { 'install_nginx': }
@@ -44,17 +45,19 @@ node 'main' inherits default
 
 	import 'install_redis.pp'
 	class { 'install_redis':
-		redis_gem 		=> true
+	  redis_gem 		=> true
 	}
 		
 
 	import 'install_mongodb.pp'
 	class { 'install_mongodb': 
-		client_only 	=> true, 
-		mongo_orm_gem 	=> true
+	  client_only 	=> true, 
+	  mongo_orm_gem 	=> true
 	} 
 	
 	class { 'install_tools': }
+
+	class { 'install_zsh': }
 
 	# import 'install_postgres.pp'
 	# class { 'install_postgres': 
@@ -69,14 +72,14 @@ node 'js' inherits default
 {
 	import 'install_mongodb.pp'
 	class { 'install_mongodb': 
-		ips => ['127.0.0.1', ]
+	  ips => ['127.0.0.1', ]
 	}
 
 	import 'install_nodejs.pp'
 	class {'install_nodejs':
-		npm_package => [
-			'mongodb', 'commander', 'coffee-script', 'underscore',
-		]
+	  npm_package => [
+		'mongodb', 'commander', 'coffee-script', 'underscore',
+	  ]
 	}
 }
 
@@ -89,7 +92,7 @@ node 'py' inherits default
 
 	import 'install_mongodb.pp'
 	class { 'install_mongodb': 
-		ips => ['127.0.0.1', ]
+	  ips => ['127.0.0.1', ]
 	}
 }
 

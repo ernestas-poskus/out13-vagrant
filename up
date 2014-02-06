@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/bash
+NOW=$(date "+%Y_%m_%d_%H-%M")
+
 if [ "$1" = "up" ]; then # If $1 argument is up then start normally
-	vagrant up $2 $3 $4 --parallel
+	vagrant up $2 $3 $4 --parallel  > .vagrant/$0_-$2-debug_$NOW.txt
 else
-	vagrant up $1 $2 $3 --no-provision --parallel
+	vagrant up $1 $2 $3 --no-provision --parallel > .vagrant/$0_debug_$NOW.txt
 fi
 

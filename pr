@@ -1,2 +1,4 @@
-#!/bin/sh
-vagrant provision $1 --provision-with puppet
+#!/bin/bash 
+NOW=$(date "+%Y_%m_%d_%H-%M")
+
+vagrant provision $1 --provision-with puppet > .vagrant/$0_-$1-debug_$NOW.txt

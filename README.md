@@ -1,4 +1,4 @@
-Vagrant Multi-Node environment
+Polyglot Vagrant 
 =============
 
 Installation
@@ -22,22 +22,33 @@ vagrant up [main, js, db]
 vagrant ssh [main, js, db]
 ```
 
-Installed components
+Components/ Manifests for [Nodes]
 --------------------
 
 * RVM / Ruby (2.0.0-p353) 
-* Rails (4.0.2) 
+* Rails
 * Nginx + Passenger
 * PostgreSQL
 * MongoDB
 * Redis
 * Node.js
-
-**Optional:**
-
-* PostgreSQL / MongoDB
+* Java
+* Scala
+* Erlang
+* Python
 * Memcached
-* Heroku / Toolbelt
+* Heroku Toolbelt
+
+
+Benchmark 
+-----
+
+**Puppet finished catalog run in seconds**
+
+```shell
+
+```
+
 
 Hints
 -----

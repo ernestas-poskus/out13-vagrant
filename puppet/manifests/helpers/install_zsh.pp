@@ -30,7 +30,7 @@ class install_zsh($oh_my = true, $username = 'vagrant')
 		}
 
 		exec { 'copy-zshrc':
-			command => "cp ${home_path}.oh-my-zsh/templates/zshrc.zsh-out13 ${home_path}.zshrc",
+			command => "cp ${home_path}.oh-my-zsh/dotfiles/.zshrc ${home_path}.zshrc",
 			user 	=> $username,
 			require => Exec['clone_oh_my_zsh'],
 		}

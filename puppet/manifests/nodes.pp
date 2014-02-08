@@ -70,7 +70,10 @@ node 'js' inherits default
 		}
 		->
 			class {'install_nodejs':
-			  npm_package => ['mongodb', 'commander', 'coffee-script', 'underscore', ]
+			  npm_package => [
+			  	'mongodb', 'commander', 'express', 'consolidate', 'bcrypt-nodejs',
+			  	'coffee-script', 'underscore', 'swig', 'validator',
+			  ]
 			}
 
 	class { 'install_tools': }

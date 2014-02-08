@@ -18,7 +18,7 @@ boxes = [
         :name => :py, 
         :ip => '192.168.115.115',
         :port => [ { 3000 => 3000 } ],
-        :mount => [ { '/var/www' => 'vm_py' } ],
+        :mount => [ { '/vagrant' => 'vm_py' } ],
         :memory => 1024,
     },
 

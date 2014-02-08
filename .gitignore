@@ -6,7 +6,12 @@
 Gemfile.lock
 .librarian/
 Puppetfile.lock
+tmp*
+
 vm_js/*
 vm_main/*
-tmp*
-!vm/.gitkeep
+vm_py/*
+
+!vm_js/.gitkeep
+!vm_main/.gitkeep
+!vm_py/.gitkeep

@@ -3,11 +3,11 @@
 # @Provider: https://github.com/ernestas-poskus/puppet-postgresql
 #
 
-class install_postgres 
+class install_postgres($ip = "${postgresql_port}")
 {
 		class {'postgresql::server': 
 			listen 			=> "*",
-	 	  	port   			=> "${postgresql_port}",
+	 	  	port   			=> $ip,
 	 	  	acl    			=> ['host all all 192.168.130.1/32 trust', ],
 		}
 		->

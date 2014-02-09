@@ -5,7 +5,7 @@
 #
 #
 
-class install_mongodb( $ips = ["${ipaddress_eth1}"] )
+class install_mongodb( $ips = ['127.0.0.1'] )
 {
 
 	$mongodb_user = 'vagrant'

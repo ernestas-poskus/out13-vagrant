@@ -1,16 +1,14 @@
 # --- Updates System ---------------------------------------------------------------------
 
 
+# Kept for Namespace
 class out_system
 {
-    # Binding relationship to update apt before installing every class
-    class {'out_system::update': stage => preinstall } 
 
-    # Spaceship relationship operator updates apt before installing package
-	Exec['out_apt_update'] -> Package <| |>
 }
 
 
+# Installing essential packages & tools for OS
 class out_system::install_essential
 {
 	package { [ 'build-essential', 'curl', 'wget', 'git-core', 
@@ -44,7 +42,7 @@ class out_system::install_extra( $packages = [] )
 }
 
 
-# brings the system up-to-date after importing it with Vagrant
+# Brings the system up-to-date after importing it with Vagrant
 class out_system::update
 {
     exec{'out_apt_update':
@@ -54,10 +52,10 @@ class out_system::update
 }
 
 
-# brings the system up-to-date after importing it with Vagrant
+# Brings the system up-to-date after importing it with Vagrant
 class out_system::upgrade
 {
-  exec { 'system_apt_upgrade':
+    exec { 'system_apt_upgrade':
         command => 'apt-get -y upgrade --fix-missing',
         timeout => 0,
         require => Exec['out_apt_update']

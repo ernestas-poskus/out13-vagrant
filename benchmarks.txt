@@ -1,4 +1,19 @@
 Node: main [4616.84 (Postgres Rel, Tool No Rel), 4456.82(-P _ Tools No Rel), 4474.61, 4493.68 ]
 Node: js [552.52, ] 218.87
-Node: py [519.35, 250.92 ]
+Node: py [519.35, ]
 Node: db [140.61, ]
+
+--- Home
+Node: main [617.25(Postgres Rel), 575.17(No P) ]
+Node: js [218.87 ]
+Node: py [250.92,  ]
+Node: db [ ]
+Node: mm [775.35, 641.53, 674.99, 752.70, 694.60, 701.48, 696.82, 722.16, ]
+
+-- 3 Nodes
+Node: mm [533.34, ]
+
+
+1. Try install_essential setting stage to preinstall: 701.48
+1a. Stages: preinstall, last. Binding tools and essentials to stages
+2. Move tools back to nodes

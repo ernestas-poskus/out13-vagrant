@@ -3,15 +3,8 @@
 
 
 boxes = [
-    # Main Node: Rails, Nginx, Redis, MongoDB/PostgreSQL clients
-    { 
-        :name => :main, 
-        :ip => '192.168.110.110',
-        :port => [ { 3000 => 3000 } ],
-        :mount => [ { '/var/www' => 'vm_main' } ],
-        :memory => 1024,
-    },
-
+	
+    # Node Main + Rails + MongoDB
     { 
         :name => :mm, 
         :ip => '192.168.110.110',
@@ -20,13 +13,14 @@ boxes = [
         :memory => 1024,
     },
 
-    # { 
-    #     :name => :mm, 
-    #     :ip => '192.168.110.110',
-    #     :port => [ { 3000 => 3000 } ],
-    #     :mount => [ { '/var/www' => 'vm_mp' } ],
-    #     :memory => 1024,
-    # },
+    # Node Main + Rails + PostgreSQL
+    { 
+         :name => :mp, 
+         :ip => '192.168.110.110',
+         :port => [ { 3000 => 3000 } ],
+         :mount => [ { '/var/www' => 'vm_mp' } ],
+         :memory => 1024,
+    },
 
     # Python development environment
     { 

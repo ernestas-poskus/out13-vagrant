@@ -9,9 +9,11 @@ Puppetfile.lock
 tmp*
 
 vm_js/*
-vm_main/*
 vm_py/*
+vm_mm/*
+vm_mp/*
 
 !vm_js/.gitkeep
-!vm_main/.gitkeep
 !vm_py/.gitkeep
+!vm_mm/.gitkeep
+!vm_mp/.gitkeep

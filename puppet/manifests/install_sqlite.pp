@@ -4,7 +4,7 @@
 
 class install_sqlite 
 {
-    $sqlite_libraries = ['libsqlite3-0', 'libsqlite3-dev', 'sqlite3']
+    $sqlite_libraries = ['sqlite3', 'libsqlite3-dev', ]
 
     package { $sqlite_libraries:
         ensure => present,

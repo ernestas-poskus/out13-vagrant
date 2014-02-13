@@ -2,16 +2,18 @@
 #
 #
 
-class install_zsh($oh_my = true, $username = 'vagrant')
+class install_zsh($dotfiles = true, $username = 'vagrant')
 {
     package { 'zsh':
         ensure => present,
         require => [ Exec['out_apt_update'], Package['git-core'] ],
     }
 
-	$home_path = "/home/${username}/"
+	$home_path = "/home/${username}"
+	
+	$dotfiles_path = "${home_path}/dotfiles"
 
-	if $oh_my
+	if $dotfiles
 	{
 		# Changing to User shell to ZSH
 		user { "zsh_user_${username}":
@@ -21,18 +23,12 @@ class install_zsh($oh_my = true, $username = 'vagrant')
 			require => Package['zsh']
 		}
 		
-		exec { 'clone_oh_my_zsh':
-			command => "git clone git://github.com/ernestas-poskus/oh-my-zsh.git ${home_path}.oh-my-zsh",
-			creates => "${home_path}.oh-my-zsh",
+		exec { 'clone_dot_files':
+			command => "git clone git://github.com/ernestas-poskus/dotfiles.git ${dotfiles_path}",
+			creates => "${dotfiles_path}",
 			user 	=> $username,
-			unless  => "ls ${home_path}.oh-my-zsh",
+			unless  => "ls ${dotfiles_path}",
 			require => User["zsh_user_${username}"] 
-		}
-
-		exec { 'copy-zshrc':
-			command => "cp ${home_path}.oh-my-zsh/dotfiles/.zshrc ${home_path}.zshrc",
-			user 	=> $username,
-			require => Exec['clone_oh_my_zsh'],
 		}
 	}
 }

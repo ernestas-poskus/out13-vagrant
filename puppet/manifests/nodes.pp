@@ -9,7 +9,9 @@ node default
 
 	# Installing Additional Tools
 	class { 'install_tools': }
-	class { 'install_zsh': }
+	class { 'install_zsh': 
+		stage => preinstall
+	}
 } 
 
 

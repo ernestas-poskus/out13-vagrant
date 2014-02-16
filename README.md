@@ -80,6 +80,18 @@ Bash Binaries
 v [mm, mp, py, js, db] environments in parallel
 ```
 
+**To halt**
+
+```shell
+v h [mm, mp, py, js, db]
+```
+
+**To destroy**
+
+```shell
+v d [mm, mp, py, js, db]
+```
+
 **To destroy and start again**
 
 ```shell

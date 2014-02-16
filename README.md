@@ -110,7 +110,7 @@ v pr [mm, mp, py, js, db]
 ss [mm, mp, py, js, db]
 ```
 
-**To suspend / resume / halt / up**
+**To suspend / resume / up**
 
 ```shell
 v [mm, mp, py, js, db] - suspends / resumes / up's ( checks status )

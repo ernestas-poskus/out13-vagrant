@@ -95,7 +95,7 @@ v pr [mm, mp, py, js, db]
 **To shortcut to ssh into Vagrant node instances**
 
 ```shell
-v ss [mm, mp, py, js, db]
+ss [mm, mp, py, js, db]
 ```
 
 **To suspend / resume / halt / up**

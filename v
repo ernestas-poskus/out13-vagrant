@@ -72,11 +72,6 @@ end
 def resume(n)
 	excute_log_append("vagrant resume #{n}", 'RESUME', "#{n}")
 end
-
-def ssh(n)
-	status(n)
-	execute("vagrant ssh #{n}")
-end
 ###################################################################################
 
 
@@ -85,8 +80,6 @@ end
 case ar[0]
 	when 'd'
 		destroy(ar[1])
-	when 'ss'
-		ssh(ar[1])
 	when 'du'
 		destroy(ar[1])
 		up(ar[1])

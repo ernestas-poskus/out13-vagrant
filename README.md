@@ -18,8 +18,8 @@ bundle install
 cd out13-vagrant/puppet
 ruby resolve_dependencies.rb
 cd ..
-vagrant up [main, js, db]
-vagrant ssh [main, js, db]
+v [mm, mp, py, js, db]
+v ss [mm, mp, py, js, db]
 ```
 
 Components/ Manifests for [Nodes]
@@ -58,7 +58,7 @@ Hints
 To provision again in case of update or errors while the virtual machine is already up, use:
 
 ```shell
-vagrant provision [main, js, db]
+vagrant provision [mm, mp, py, js, db]
 ```
 It just runs puppet to apply manifests without restarting the virtual machine.
 
@@ -67,57 +67,41 @@ It just runs puppet to apply manifests without restarting the virtual machine.
 To speed up the startup process after the first run, use:
 
 ```shell
-vagrant up --no-provision
+vagrant up [mm, mp, py, js, db] --no-provision
 ```
 It just starts the virtual machine without provisioning of the puppet recipes.
 
 Bash Binaries
 -----
 
-**To start main Vagrant instance node**
+**To start Vagrant instance node**
 
 ```shell
-dev - to start [main, db] environments in parallel
-dev js - to start node.js + mongodb environment
+v [mm, mp, py, js, db] environments in parallel
 ```
 
 **To destroy and start again**
 
 ```shell
-du [main, js, db]
+v du [mm, mp, py, js, db]
 ```
 
 **To provision Vagrant instance with puppet**
 
 ```shell
-pr [main, js, db]
+v pr [mm, mp, py, js, db]
 ```
 
-**Shortcut to ssh into Vagrant node instances**
+**To shortcut to ssh into Vagrant node instances**
 
 ```shell
-ss [main, js, db]
+v ss [mm, mp, py, js, db]
 ```
 
-**To bring up several nodes in parallel without provision**
-
-
-```shell
-up [main, js, db]
-```
-
-**To halt /suspend node**
+**To suspend / resume / halt / up**
 
 ```shell
-sus [main, js, db] - suspends node (sleep mode)
-sus h [main, js, db] - when first argument is h then node is halted
-```
-
-**To Suspend / Resume / Halt**
-
-```shell
-sr [main, js, db] - suspends / resumes ( checks status )
-sr h [main, js, db] - halts / up's node ( checks status )
+v [mm, mp, py, js, db] - suspends / resumes / up's ( checks status )
 ```
 
 

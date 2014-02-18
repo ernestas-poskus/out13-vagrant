@@ -103,3 +103,14 @@ node 'db' inherits default
 # 	class{ 'erlang': }
 
 # }
+
+# import 'install_elasticsearch.pp'
+# class { 'install_elasticsearch': }
+
+
+node /replica\d+/ inherits default 
+{
+  mongodb_replset{'rsmain':
+    members => ['mongo1:27017', 'mongo2:27017', 'mongo3:27017']
+  }
+}

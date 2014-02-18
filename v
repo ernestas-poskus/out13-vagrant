@@ -41,7 +41,7 @@ def status(n)
 		when /saved/
 			resume(n)
 		when /created/ || /poweroff/
-			up(n)
+			up(n, '')
 		when /running/
 			suspend(n)
 		else
@@ -82,7 +82,7 @@ case ar[0]
 		destroy(ar[1])
 	when 'du'
 		destroy(ar[1])
-		up(ar[1])
+		up(ar[1], '')
 	when 'h'
 		halt(ar[1])
 	when 'pr'

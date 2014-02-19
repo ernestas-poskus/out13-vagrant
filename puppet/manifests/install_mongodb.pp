@@ -5,7 +5,7 @@
 #
 #
 
-class install_mongodb( $ips = ['127.0.0.1'] )
+class install_mongodb( $ips = ['127.0.0.1'], $mongo_orm_gem = false )
 {
 
 	$mongodb_user = 'vagrant'
@@ -14,49 +14,42 @@ class install_mongodb( $ips = ['127.0.0.1'] )
 	$mongo_db_path =  "${$mongo_base_dir}/db"
 
 
-		class { 'mongodb::globals': 
-			manage_package_repo => true,
-		}->
-		class { 'mongodb::server':
-			ensure					=> true,	
-			user 						=> $mongodb_user,
-			group						=> $mongodb_user,
-			bind_ip					=> $ips,
-  		port    				=> "${mongo_port}",
-  		dbpath					=> $mongo_db_path,
-  		verbose 				=> true,
-  		noauth 					=> true, # Authentication disabled
-  		smallfiles			=> true, # Limits DB files to <= 512mb
-  		directoryperdb 	=> true, # Stores each database file in a distict folder
-  		nohttpinterface	=> false, # Disable http interface
-  		rest						=> true, # MongoDB Rest Interface
-  		replset					=> 'rsmain'
-  	}
+	class { 'mongodb::globals': 
+		manage_package_repo => true,
+	}->
+	class { 'mongodb::server':
+		ensure					=> true,	
+		user 						=> $mongodb_user,
+		group						=> $mongodb_user,
+		bind_ip					=> $ips,
+		port    				=> "${mongo_port}",
+		dbpath					=> $mongo_db_path,
+		verbose 				=> true,
+		noauth 					=> true, # Authentication disabled
+		smallfiles			=> true, # Limits DB files to <= 512mb
+		directoryperdb 	=> true, # Stores each database file in a distict folder
+		nohttpinterface	=> false, # Disable http interface
+		rest						=> true, # MongoDB Rest Interface
+		replset					=> 'rsmain'
+	}
 
-	  	file { [ $mongo_base_dir ]:
-		    ensure 				=> "directory",
-		    owner  				=> $mongodb_user,
-		    group  				=> $mongodb_user,
-		    mode   				=> 777,
-		    before 				=> Class['mongodb::server'],
+	file { [ $mongo_base_dir ]:
+    ensure 					=> "directory",
+    owner  					=> $mongodb_user,
+    group  					=> $mongodb_user,
+    mode   					=> 777,
+    before 					=> Class['mongodb::server'],
+	}
+
+	if $mongo_orm_gem
+	{
+		rvm_gem { 'mongo_orm_gem':
+			name 					=> 'mongo_mapper',
+			ruby_version 	=> $ruby_version_install,
+			ensure 				=> latest,
 		}
+	}
+
 
 }
 
-
-class install_mongodb::client($mongo_orm_gem = false)
-{
-		package { 'mongodb-clients':
-			ensure 		=> present,
-			require		=> Exec['out_apt_update'],
-		}
-
-		if $mongo_orm_gem
-		{
-			rvm_gem { 'mongo_orm_gem':
-				name 			=> 'mongo_mapper',
-				ruby_version 	=> $ruby_version_install,
-				ensure 			=> latest,
-			}
-		}
-}

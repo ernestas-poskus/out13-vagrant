@@ -15,7 +15,7 @@ node default
 } 
 
 
-# Main node
+# Main `parent` node
 node 'main' inherits default
 {
 	import 'install_nginx.pp'
@@ -28,7 +28,7 @@ node 'main' inherits default
 	}
 	->
 		class {'install_ruby':
-		  gems => ['bundler', 'rails', 'redis', 'mongo_mapper' ] 
+		  gems => ['bundler', 'rails', 'redis'] 
 		}
 		->
 			class { 'install_nginx': }
@@ -37,15 +37,18 @@ node 'main' inherits default
 }
 
 
-# Main Node + MongoDB
+# Inherits from Main node + MongoDB + Elasticsearch
 node 'mm' inherits main
 {
 	import 'install_mongodb.pp'	
-	class { 'install_mongodb': } 
+	class { 'install_mongodb': mongo_orm_gem => true } 
+
+	import 'install_elasticsearch.pp'
+	class { 'install_elasticsearch': elastic_gem => true }
 }
 
 
-# Main Node + PostgreSQL
+# Inherits from Main node + PostgreSQL client
 node 'mp' inherits main
 {
 	import 'install_postgres.pp'
@@ -92,25 +95,4 @@ node 'db' inherits default
 	class { 'install_mongodb': 
 		ips => ["${ipaddress_eth1}", ]
 	}
-}
-
-
-# Node experimental for Erlang
-# node 'erlang' inherits default
-# {
-
-# 	# Depends: https://github.com/stahnma/puppet-module-epel
-# 	class{ 'erlang': }
-
-# }
-
-# import 'install_elasticsearch.pp'
-# class { 'install_elasticsearch': }
-
-
-node /replica\d+/ inherits default 
-{
-  mongodb_replset{'rsmain':
-    members => ['mongo1:27017', 'mongo2:27017', 'mongo3:27017']
-  }
 }

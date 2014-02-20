@@ -8,6 +8,7 @@ import 'out_system.pp'
 # Helpers
 # import 'helpers/add_user.pp'
 import 'helpers/install_tools.pp'
+import 'helpers/install_dotfiles.pp'
 import 'helpers/install_zsh.pp'
 
 
@@ -20,9 +21,9 @@ import 'nodes.pp'
 #  
 Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 File {
-    owner => 0,
-    group => 0,
-    mode => 0644
+	owner => 0,
+	group => 0,
+	mode => 0644
 }
 
 

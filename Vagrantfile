@@ -106,7 +106,7 @@ Vagrant.configure('2') do |config|
             pp.module_path        = "puppet/modules"
             pp.manifest_file      = "init.pp"
             pp.facter = {
-              'ruby_version_install'  => '2.0.0-p353',
+              'ruby_version_install'  => '2.1.0',
               'postgresql_port'       => 5432, # Default PostgreSQL port 5432
               'mongo_port'            => 27017, # Default MongoDB port 27017
               'redis_port'            => 6379, # Default Redis port 6379

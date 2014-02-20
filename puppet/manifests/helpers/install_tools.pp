@@ -2,21 +2,20 @@
 #
 #
 
+
 class install_tools( $packages = [] )
 {
-
 	$tools = concat(['htop', 'tree', 'vim', 'tmux'], $packages)
 
-    package { $tools:
-        ensure => present,
-        require => Exec['out_apt_update'],
-	}
+  package { $tools:
+    ensure => present,
+    require => Exec['out_apt_update'],
+  }
 
+  include apt
 
-    include apt
-
-    # Addding Tmux Apt Repository 
-    apt::ppa { 'ppa:pi-rho/dev':
-		before => Package['tmux'],
-    }
+  # Addding Tmux Apt Repository 
+  apt::ppa { 'ppa:pi-rho/dev':
+	  before => Package['tmux'],
+  }
 }

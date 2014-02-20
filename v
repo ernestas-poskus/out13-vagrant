@@ -40,7 +40,7 @@ def status(n)
 	case execute("vagrant status #{n}")
 		when /saved/
 			resume(n)
-		when /created/ || /poweroff/
+		when /not created/ || /poweroff/
 			up(n, '')
 		when /running/
 			suspend(n)

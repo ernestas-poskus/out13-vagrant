@@ -5,14 +5,11 @@
 #
 #
 
-class install_mongodb( $ips = ['127.0.0.1'], $mongo_orm_gem = false )
+class install_mongodb( $ips = ['127.0.0.1'] )
 {
-
 	$mongodb_user = 'vagrant'
-
 	$mongo_base_dir = '/data'
 	$mongo_db_path =  "${$mongo_base_dir}/db"
-
 
 	class { 'mongodb::globals': 
 		manage_package_repo => true,
@@ -40,16 +37,4 @@ class install_mongodb( $ips = ['127.0.0.1'], $mongo_orm_gem = false )
     mode   					=> 777,
     before 					=> Class['mongodb::server'],
 	}
-
-	if $mongo_orm_gem
-	{
-		rvm_gem { 'mongo_orm_gem':
-			name 					=> 'mongo_mapper',
-			ruby_version 	=> $ruby_version_install,
-			ensure 				=> latest,
-		}
-	}
-
-
 }
-

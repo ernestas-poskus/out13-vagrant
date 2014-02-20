@@ -22,6 +22,5 @@ class install_ruby($ruby_only = false, $gems = [], $username = 'vagrant')
 			ensure => latest,
 			require => Rvm_system_ruby[$ruby_version_install];
 		}
-    }
-
+  }
 }

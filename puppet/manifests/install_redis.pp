@@ -3,17 +3,18 @@
 # @Provider: git://github.com/fsalum/puppet-redis
 #
 
+
 class install_redis($ip = '127.0.0.1') 
 {
-    class { 'redis':
-      conf_bind       => $ip,
-      conf_port       => "${redis_port}",
-      conf_loglevel   => 'debug',
-      package_ensure  => present,
-      service_ensure  => 'running',
-      service_enable  => true,
-      conf_dir        => '/var/redis/'
-    }
+  class { 'redis':
+    conf_bind       => $ip,
+    conf_port       => "${redis_port}",
+    conf_loglevel   => 'debug',
+    package_ensure  => present,
+    service_ensure  => 'running',
+    service_enable  => true,
+    conf_dir        => '/var/redis/'
+  }
 }
 
 

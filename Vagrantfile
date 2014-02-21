@@ -56,12 +56,13 @@ Vagrant.configure('2') do |config|
         config.vm.define opts[:name] do |c|
 
         # Box basics
-        c.vm.box = "US1204-x64"
+        c.vm.box = "ubuntu-1310-x64"
         c.vm.hostname = opts[:name]
 
 
         # Headless / Clean / Puppet/Ruby-less box
-        c.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box'
+        c.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-1310-x64-virtualbox-nocm.box'
+        
 
         # Installing Puppet
         c.vm.provision :shell, inline: "apt-get update && apt-get install -y puppet"
@@ -106,7 +107,7 @@ Vagrant.configure('2') do |config|
             pp.module_path        = "puppet/modules"
             pp.manifest_file      = "init.pp"
             pp.facter = {
-              'ruby_version_install'  => '2.1.0',
+              'ruby_version_install'  => '2.0.0-p353',
               'postgresql_port'       => 5432, # Default PostgreSQL port 5432
               'mongo_port'            => 27017, # Default MongoDB port 27017
               'redis_port'            => 6379, # Default Redis port 6379

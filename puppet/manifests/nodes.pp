@@ -1,50 +1,40 @@
 # --- Nodes ---------------------------------------------------------------------
 
-
 # Default Node for Global VM dependencies
 node default
 { 
-	# Binding Stages
-	class { 'out_system::update': stage => preinstall } 
-	class { 'out_system::install_essential': stage => preinstall }
 
-	# Installing Additional Tools
-	class { 'install_tools': }
-	class { 'install_dotfiles': }
-	class { 'install_zsh': 
-		stage => preinstall
-	}
 } 
 
 
-node 'mm' inherits default
+node 'mm'
 {
 	import 'install_nginx.pp'
 	import 'install_ruby.pp'
 	import 'install_nodejs.pp'
 	import 'install_redis.pp'
 	import 'install_mongodb.pp'	
-	import 'install_elasticsearch.pp'
+	# import 'install_elasticsearch.pp'
 
 	class {'install_nodejs':  
 	  npm_package => ['coffee-script', 'bower', ] 
 	}
 	->
-		class {'install_ruby':
-		  gems => ['bundler', 'rails', 'redis', 'mongo_mapper', 'elasticsearch'] 
-		}
-		->
-			class { 'install_nginx': }
+		# class { 'install_elasticsearch': }
+		# ->
+			class {'install_ruby':
+			  gems => ['bundler', 'rails', 'redis', 'mongo_mapper', ]#'elasticsearch'] 
+			}
 			->
-				class { 'install_redis': }
+				class { 'install_nginx': }
 				->
 					class { 'install_mongodb': } 
-					->
-						class { 'install_elasticsearch': }
+
+	class { 'install_redis': }					
 }
 
 
-node 'mp' inherits default
+node 'mp'
 {
 	import 'install_nginx.pp'
 	import 'install_ruby.pp'
@@ -69,7 +59,7 @@ node 'mp' inherits default
 
 
 # Node for JavaScript development with `node`
-node 'js' inherits default 
+node 'js'
 {
 	import 'install_mongodb.pp'
 	import 'install_nodejs.pp'
@@ -86,7 +76,7 @@ node 'js' inherits default
 
 
 # Node for Python applications
-node 'py' inherits default 
+node 'py'
 {
 	import 'install_python.pp'
 	import 'install_mongodb.pp'
@@ -98,7 +88,7 @@ node 'py' inherits default
 
 
 # Node for `remote` database connection / replication / sharding - set
-node 'db' inherits default
+node 'db'
 {
 	import 'install_postgres.pp'
 	include install_postgres

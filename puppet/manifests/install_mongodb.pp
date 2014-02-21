@@ -34,7 +34,7 @@ class install_mongodb( $ips = ['127.0.0.1'] )
     ensure 					=> "directory",
     owner  					=> $mongodb_user,
     group  					=> $mongodb_user,
-    mode   					=> 777,
+    mode   					=> 0777,
     before 					=> Class['mongodb::server'],
 	}
 }

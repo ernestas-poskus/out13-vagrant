@@ -23,7 +23,7 @@ Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 File {
 	owner => 0,
 	group => 0,
-	mode => 0644
+	mode => 0755
 }
 
 
@@ -33,3 +33,12 @@ Exec['out_apt_update'] -> Package <| |>
 
 # Defining Stages
 stage { 'preinstall': before => Stage['main'] }
+
+
+class { 'out_system::update': stage => preinstall } 
+class { 'out_system::install_essential': stage => preinstall }
+
+# Installing Additional Tools
+class { 'install_zsh': stage => preinstall }
+class { 'install_tools': }
+class { 'install_dotfiles': }
